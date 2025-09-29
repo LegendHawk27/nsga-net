@@ -1,5 +1,0 @@
-Genome = [[[array([3, 0]), array([6, 1])], [array([1, 2]), array([5, 2])], [array([7, 1]), array([3, 2])], [array([0, 1]), array([5, 1])], [array([7, 2]), array([1, 4])]], [[array([1, 0]), array([6, 1])], [array([1, 0]), array([0, 0])], [array([5, 3]), array([1, 0])], [array([4, 0]), array([3, 0])], [array([5, 4]), array([3, 3])]]]
-Architecture = Genotype(normal=[('sep_conv_3x3', np.int64(0)), ('dil_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(2)), ('dil_conv_3x3', np.int64(2)), ('sep_conv_7x7', np.int64(1)), ('sep_conv_3x3', np.int64(2)), ('max_pool_3x3', np.int64(1)), ('dil_conv_3x3', np.int64(1)), ('sep_conv_7x7', np.int64(2)), ('avg_pool_3x3', np.int64(4))], normal_concat=[3, 5, 6], reduce=[('avg_pool_3x3', np.int64(0)), ('dil_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(0)), ('max_pool_3x3', np.int64(0)), ('dil_conv_3x3', np.int64(3)), ('avg_pool_3x3', np.int64(0)), ('sep_conv_5x5', np.int64(0)), ('sep_conv_3x3', np.int64(0)), ('dil_conv_3x3', np.int64(4)), ('sep_conv_3x3', np.int64(3))], reduce_concat=[2, 5, 6])
-param size = 0.916282MB
-flops = 160.7299MB
-valid_acc = 68.51
