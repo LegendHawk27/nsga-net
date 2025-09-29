@@ -134,6 +134,7 @@ class NetworkCIFAR(nn.Module):
         super(NetworkCIFAR, self).__init__()
         self._layers = layers
         self._auxiliary = auxiliary
+        self.droprate = 0.0
 
         stem_multiplier = 3
         C_curr = stem_multiplier * C
@@ -183,6 +184,7 @@ class PyramidNetworkCIFAR(nn.Module):
         super(PyramidNetworkCIFAR, self).__init__()
         self._layers = layers
         self._auxiliary = auxiliary
+        self.droprate = 0.0
 
         stem_multiplier = 3
         C_curr = stem_multiplier * C
@@ -195,7 +197,7 @@ class PyramidNetworkCIFAR(nn.Module):
         reduction_prev = False
         for i in range(layers):
             if i in [layers // 3, 2 * layers // 3]:
-                # C_curr *= 2
+                C_curr *= 2
                 reduction = True
             else:
                 reduction = False
@@ -234,6 +236,7 @@ class NetworkImageNet(nn.Module):
         super(NetworkImageNet, self).__init__()
         self._layers = layers
         self._auxiliary = auxiliary
+        self.droprate = 0.0
 
         self.stem0 = nn.Sequential(
             nn.Conv2d(3, C // 2, kernel_size=3, stride=2, padding=1, bias=False),
@@ -296,5 +299,4 @@ if __name__ == '__main__':
     # model = GradPyramidNetworkCIFAR(34, 10, 20, True, genome, 4)
     model.droprate = 0.0
 
-    # calculate number of trainable parameters
     print("param size = {}MB".format(utils.count_parameters_in_MB(model)))

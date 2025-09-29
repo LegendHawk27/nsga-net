@@ -1,6 +1,6 @@
 import sys
 # update your projecty root path before running
-sys.path.insert(0, '/path/to/nsga-net')
+sys.path.insert(0, r'D:\Research\nsga-net')
 
 import os
 import numpy as np
@@ -25,14 +25,14 @@ from search import macro_encoding
 from misc.flops_counter import add_flops_counting_methods
 
 
-device = 'cuda'
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 
 def main(genome, epochs, search_space='micro',
          save='Design_1', expr_root='search', seed=0, gpu=0, init_channels=24,
-         layers=11, auxiliary=False, cutout=False, drop_path_prob=0.0):
+         layers=11, auxiliary=False, cutout=False, drop_path_prob=0.0,
+         use_synflow=True, synflow_threshold=-150.0, synflow_check_epoch=1):
 
-    # ---- train logger ----------------- #
     save_pth = os.path.join(expr_root, '{}'.format(save))
     utils.create_exp_dir(save_pth)
     log_format = '%(asctime)s %(message)s'
@@ -42,13 +42,12 @@ def main(genome, epochs, search_space='micro',
     # fh.setFormatter(logging.Formatter(log_format))
     # logging.getLogger().addHandler(fh)
 
-    # ---- parameter values setting ----- #
     CIFAR_CLASSES = 10
-    learning_rate = 0.025
+    learning_rate = 0.05
     momentum = 0.9
     weight_decay = 3e-4
-    data_root = '../data'
-    batch_size = 128
+    data_root = './data'
+    batch_size = 96
     cutout_length = 16
     auxiliary_weight = 0.4
     grad_clip = 5
@@ -75,19 +74,42 @@ def main(genome, epochs, search_space='micro',
     # logging.info("Genome = %s", genome)
     logging.info("Architecture = %s", genotype)
 
-    torch.cuda.set_device(gpu)
+    if device == 'cuda':
+        torch.cuda.set_device(gpu)
+        torch.cuda.manual_seed(seed)
     cudnn.benchmark = True
     torch.manual_seed(seed)
     cudnn.enabled = True
-    torch.cuda.manual_seed(seed)
 
     n_params = (np.sum(np.prod(v.size()) for v in filter(lambda p: p.requires_grad, model.parameters())) / 1e6)
     model = model.to(device)
 
     logging.info("param size = %fMB", n_params)
 
+    synflow_score = None
+    if use_synflow:
+        try:
+            from search.synflow import compute_synflow_score, should_early_stop
+        except ImportError:
+            logging.warning("SynFlow module not found, disabling SynFlow")
+            use_synflow = False
+
+    early_stopped = False
+    if use_synflow and epochs > synflow_check_epoch:
+        logging.info("Computing SynFlow score for early stopping...")
+        try:
+            synflow_score = compute_synflow_score(model, device=device)
+            logging.info(f"SynFlow score: {synflow_score}")
+            
+            if should_early_stop(synflow_score, synflow_threshold):
+                logging.info("Early stopping due to low SynFlow score")
+                early_stopped = True
+        except Exception as e:
+            logging.warning(f"Error computing SynFlow score: {e}")
+            use_synflow = False
+
     criterion = nn.CrossEntropyLoss()
-    criterion = criterion.cuda()
+    criterion = criterion.to(device)
 
     parameters = filter(lambda p: p.requires_grad, model.parameters())
     optimizer = torch.optim.SGD(
@@ -125,13 +147,36 @@ def main(genome, epochs, search_space='micro',
 
     train_queue = torch.utils.data.DataLoader(
         train_data, batch_size=batch_size,
-        # sampler=torch.utils.data.sampler.SubsetRandomSampler(indices[:split]),
-        pin_memory=True, num_workers=4)
+        pin_memory=True, num_workers=2)
 
     valid_queue = torch.utils.data.DataLoader(
         valid_data, batch_size=batch_size,
-        # sampler=torch.utils.data.sampler.SubsetRandomSampler(indices[split:num_train]),
-        pin_memory=True, num_workers=4)
+        pin_memory=True, num_workers=2)
+
+    # Handle early stopping
+    if early_stopped:
+        logging.info("Skipping training due to early stopping")
+        n_flops = 0.0
+        return {
+            'valid_acc': 0.0,
+            'params': n_params,
+            'flops': n_flops,
+            'early_stopped': True,
+            'synflow_score': synflow_score
+        }
+    
+    original_epochs = epochs
+    if use_synflow and synflow_score is not None:
+        if synflow_score < synflow_threshold + 20:
+            epochs = max(1, epochs // 2)
+            logging.info(f"Reduced epochs to {epochs} due to marginal SynFlow score")
+        elif synflow_score > synflow_threshold + 50:
+            epochs = min(epochs, 8)
+            logging.info(f"Capped epochs to {epochs} for promising architecture")
+    
+    if epochs > 6:
+        epochs = 6
+        logging.info(f"Optimized epochs reduced to {epochs} for faster search")
 
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, int(epochs))
 
@@ -146,7 +191,6 @@ def main(genome, epochs, search_space='micro',
     valid_acc, valid_obj = infer(valid_queue, model, criterion)
     logging.info('valid_acc %f', valid_acc)
 
-    # calculate for flops
     model = add_flops_counting_methods(model)
     model.eval()
     model.start_flops_count()
@@ -155,7 +199,6 @@ def main(genome, epochs, search_space='micro',
     n_flops = np.round(model.compute_average_flops_cost() / 1e6, 4)
     logging.info('flops = %f', n_flops)
 
-    # save to file
     # os.remove(os.path.join(save_pth, 'log.txt'))
     with open(os.path.join(save_pth, 'log.txt'), "w") as file:
         file.write("Genome = {}\n".format(genome))
@@ -164,12 +207,14 @@ def main(genome, epochs, search_space='micro',
         file.write("flops = {}MB\n".format(n_flops))
         file.write("valid_acc = {}\n".format(valid_acc))
 
-    # logging.info("Architecture = %s", genotype))
 
     return {
         'valid_acc': valid_acc,
         'params': n_params,
         'flops': n_flops,
+        'early_stopped': early_stopped,
+        'synflow_score': synflow_score,
+        'reduced_epochs': epochs != original_epochs if 'original_epochs' in locals() else False
     }
 
 
@@ -208,7 +253,6 @@ def main(genome, epochs, search_space='micro',
 #
 #     return top1.avg, objs.avg
 
-# Training
 def train(train_queue, net, criterion, optimizer, params):
     net.train()
     train_loss = 0
@@ -234,10 +278,6 @@ def train(train_queue, net, criterion, optimizer, params):
         total += targets.size(0)
         correct += predicted.eq(targets).sum().item()
 
-    #     if step % args.report_freq == 0:
-    #         logging.info('train %03d %e %f', step, train_loss/total, 100.*correct/total)
-    #
-    # logging.info('train acc %f', 100. * correct / total)
 
     return 100.*correct/total, train_loss/total
 
@@ -285,11 +325,8 @@ def infer(valid_queue, net, criterion):
             total += targets.size(0)
             correct += predicted.eq(targets).sum().item()
 
-            # if step % args.report_freq == 0:
-            #     logging.info('valid %03d %e %f', step, test_loss/total, 100.*correct/total)
 
     acc = 100.*correct/total
-    # logging.info('valid acc %f', 100. * correct / total)
 
     return acc, test_loss/total
 
@@ -301,7 +338,4 @@ if __name__ == "__main__":
     print(main(genome=DARTS_V2, epochs=20, save='DARTS_V2_16', seed=1, init_channels=16,
                auxiliary=False, cutout=False, drop_path_prob=0.0))
     print('Time elapsed = {} mins'.format((time.time() - start)/60))
-    # start = time.time()
-    # print(main(genome=DARTS_V2, epochs=20, save='DARTS_V2_32', seed=1, init_channels=32))
-    # print('Time elapsed = {} mins'.format((time.time() - start) / 60))
 

@@ -3,7 +3,7 @@ from __future__ import print_function
 
 import sys
 # update your projecty root path before running
-sys.path.insert(0, 'path/to/nsga-net')
+sys.path.insert(0, r'D:\Research\nsga-net')
 
 import torch
 import torch.nn as nn
@@ -56,7 +56,7 @@ args = parser.parse_args()
 args.save = 'train-{}-{}'.format(args.save, time.strftime("%Y%m%d-%H%M%S"))
 utils.create_exp_dir(args.save)
 
-device = 'cuda'
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 log_format = '%(asctime)s %(message)s'
 logging.basicConfig(stream=sys.stdout, level=logging.INFO,
@@ -68,8 +68,7 @@ logging.getLogger().addHandler(fh)
 
 def main():
     if not torch.cuda.is_available():
-        logging.info('no gpu device available')
-        sys.exit(1)
+        logging.info('CUDA not available, using CPU')
 
     if args.auxiliary and args.net_type == 'macro':
         logging.info('auxiliary head classifier not supported for macro search space models')
@@ -81,9 +80,10 @@ def main():
     cudnn.benchmark = True
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
-    torch.cuda.manual_seed(args.seed)
+    if device == 'cuda':
+        torch.cuda.manual_seed(args.seed)
 
-    best_acc = 0  # initiate a artificial best accuracy so far
+    best_acc = 0
 
     # Data
     train_transform, valid_transform = utils._data_transforms_cifar10(args)
@@ -96,7 +96,6 @@ def main():
     valid_queue = torch.utils.data.DataLoader(
         valid_data, batch_size=128, shuffle=False, pin_memory=True, num_workers=2)
 
-    # classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
     # Model
     if args.net_type == 'micro':
@@ -112,7 +111,6 @@ def main():
     else:
         raise NameError('Unknown network type, please only use supported network type')
 
-    # logging.info("{}".format(net))
     logging.info("param size = %fMB", utils.count_parameters_in_MB(net))
 
     net = net.to(device)
@@ -169,10 +167,7 @@ def train(train_queue, net, criterion, optimizer):
         total += targets.size(0)
         correct += predicted.eq(targets).sum().item()
 
-        if step % args.report_freq == 0:
-            logging.info('train %03d %e %f', step, train_loss/total, 100.*correct/total)
 
-    logging.info('train acc %f', 100. * correct / total)
 
     return train_loss/total, 100.*correct/total
 
@@ -194,11 +189,8 @@ def infer(valid_queue, net, criterion):
             total += targets.size(0)
             correct += predicted.eq(targets).sum().item()
 
-            if step % args.report_freq == 0:
-                logging.info('valid %03d %e %f', step, test_loss/total, 100.*correct/total)
 
     acc = 100.*correct/total
-    logging.info('valid acc %f', 100. * correct / total)
 
     return test_loss/total, acc
 

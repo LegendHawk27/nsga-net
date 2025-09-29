@@ -3,7 +3,7 @@ from __future__ import print_function
 
 import sys
 # update your projecty root path before running
-sys.path.insert(0, 'path/to/nsga-net')
+sys.path.insert(0, r'D:\Research\nsga-net')
 
 import torch
 import torch.nn as nn
@@ -49,7 +49,7 @@ args = parser.parse_args()
 args.save = 'infer-{}-{}'.format(args.save, time.strftime("%Y%m%d-%H%M%S"))
 utils.create_exp_dir(args.save)
 
-device = 'cuda'
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 log_format = '%(asctime)s %(message)s'
 logging.basicConfig(stream=sys.stdout, level=logging.INFO,
@@ -61,8 +61,7 @@ logging.getLogger().addHandler(fh)
 
 def main():
     if not torch.cuda.is_available():
-        logging.info('no gpu device available')
-        sys.exit(1)
+        logging.info('CUDA not available, using CPU')
 
     if args.auxiliary and args.net_type == 'macro':
         logging.info('auxiliary head classifier not supported for macro search space models')
@@ -74,7 +73,8 @@ def main():
     cudnn.benchmark = True
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
-    torch.cuda.manual_seed(args.seed)
+    if device == 'cuda':
+        torch.cuda.manual_seed(args.seed)
 
     # Data
     _, valid_transform = utils._data_transforms_cifar10(args)
@@ -103,14 +103,12 @@ def main():
     logging.info("param size = %fMB", utils.count_parameters_in_MB(net))
 
     net = net.to(device)
-    # no drop path during inference
     net.droprate = 0.0
     utils.load(net, args.model_path)
 
     criterion = nn.CrossEntropyLoss()
     criterion.to(device)
 
-    # inference on original CIFAR-10 test images
     infer(valid_queue, net, criterion)
 
 
@@ -131,8 +129,6 @@ def infer(valid_queue, net, criterion):
             total += targets.size(0)
             correct += predicted.eq(targets).sum().item()
 
-            if step % args.report_freq == 0:
-                logging.info('valid %03d %e %f', step, test_loss/total, 100.*correct/total)
 
     acc = 100.*correct/total
     logging.info('valid acc %f', acc)

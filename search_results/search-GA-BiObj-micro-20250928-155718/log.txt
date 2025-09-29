@@ -1,0 +1,207 @@
+2025-09-28 15:57:18,192 args = Namespace(save='search_results/search-GA-BiObj-micro-20250928-155718', seed=0, search_space='micro', n_blocks=5, n_ops=9, n_cells=2, n_nodes=4, pop_size=8, n_gens=4, n_offspring=6, init_channels=24, layers=11, epochs=3, use_synflow=True, no_synflow=False)
+2025-09-28 15:57:18,192 Computing SynFlow scores for generation 0
+2025-09-28 15:57:18,192 Computing SynFlow for Network id = 1
+2025-09-28 15:57:18,253 Computing SynFlow for Network id = 2
+2025-09-28 15:57:18,312 Computing SynFlow for Network id = 3
+2025-09-28 15:57:18,374 Computing SynFlow for Network id = 4
+2025-09-28 15:57:18,476 Computing SynFlow for Network id = 5
+2025-09-28 15:57:18,541 Computing SynFlow for Network id = 6
+2025-09-28 15:57:18,599 Computing SynFlow for Network id = 7
+2025-09-28 15:57:18,663 Computing SynFlow for Network id = 8
+2025-09-28 15:57:21,767 SynFlow ranking for generation 0: [0 1 3 7 4 5 6 2]
+2025-09-28 15:57:21,767 Keeping 4 out of 8 architectures based on SynFlow prefiltering
+2025-09-28 15:57:21,767 Training prefiltered architecture 1 with SynFlow score -3.9938
+2025-09-28 15:57:21,817 Architecture = Genotype(normal=[('sep_conv_7x7', np.int64(0)), ('dil_conv_5x5', np.int64(1)), ('sep_conv_7x7', np.int64(0)), ('sep_conv_7x7', np.int64(0)), ('avg_pool_3x3', np.int64(0)), ('avg_pool_3x3', np.int64(0)), ('sep_conv_5x5', np.int64(1)), ('dil_conv_3x3', np.int64(2)), ('dil_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(4))], normal_concat=[3, 5, 6], reduce=[('sep_conv_7x7', np.int64(0)), ('dil_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(0)), ('max_pool_3x3', np.int64(0)), ('dil_conv_3x3', np.int64(3)), ('avg_pool_3x3', np.int64(2)), ('max_pool_3x3', np.int64(2)), ('dil_conv_5x5', np.int64(2)), ('sep_conv_7x7', np.int64(3)), ('avg_pool_3x3', np.int64(2))], reduce_concat=[4, 5, 6])
+2025-09-28 15:57:21,867 param size = 0.975322MB
+2025-09-28 15:57:23,048 epoch 0 lr 2.812500e-02
+2025-09-28 16:00:50,856 train_acc 42.605000
+2025-09-28 16:00:50,856 epoch 1 lr 4.166667e-03
+2025-09-28 16:04:31,801 train_acc 62.427500
+2025-09-28 16:04:31,801 epoch 2 lr 0.000000e+00
+2025-09-28 16:08:11,393 train_acc 66.815000
+2025-09-28 16:08:34,762 valid_acc 66.980000
+2025-09-28 16:08:34,849 flops = 176.950100
+2025-09-28 16:08:34,859 Training prefiltered architecture 2 with SynFlow score -4.0794
+2025-09-28 16:08:34,907 Architecture = Genotype(normal=[('sep_conv_3x3', np.int64(0)), ('dil_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(2)), ('dil_conv_5x5', np.int64(2)), ('sep_conv_7x7', np.int64(1)), ('sep_conv_3x3', np.int64(2)), ('max_pool_3x3', np.int64(1)), ('dil_conv_3x3', np.int64(1)), ('sep_conv_7x7', np.int64(2)), ('avg_pool_3x3', np.int64(4))], normal_concat=[3, 5, 6], reduce=[('avg_pool_3x3', np.int64(1)), ('dil_conv_3x3', np.int64(1)), ('avg_pool_3x3', np.int64(2)), ('dil_conv_3x3', np.int64(0)), ('dil_conv_3x3', np.int64(3)), ('skip_connect', np.int64(0)), ('sep_conv_5x5', np.int64(0)), ('sep_conv_3x3', np.int64(0)), ('dil_conv_3x3', np.int64(4)), ('sep_conv_3x3', np.int64(3))], reduce_concat=[5, 6])
+2025-09-28 16:08:34,960 param size = 0.923914MB
+2025-09-28 16:08:36,295 epoch 0 lr 2.812500e-02
+2025-09-28 16:11:58,954 train_acc 37.357500
+2025-09-28 16:11:58,954 epoch 1 lr 4.166667e-03
+2025-09-28 16:15:15,887 train_acc 58.817500
+2025-09-28 16:15:15,887 epoch 2 lr 0.000000e+00
+2025-09-28 16:18:33,389 train_acc 63.922500
+2025-09-28 16:18:54,901 valid_acc 64.530000
+2025-09-28 16:18:54,983 flops = 162.646800
+2025-09-28 16:18:54,983 Training prefiltered architecture 4 with SynFlow score -4.5376
+2025-09-28 16:18:55,020 Architecture = Genotype(normal=[('conv_7x1_1x7', np.int64(0)), ('dil_conv_3x3', np.int64(1)), ('max_pool_3x3', np.int64(0)), ('max_pool_3x3', np.int64(2)), ('avg_pool_3x3', np.int64(3)), ('max_pool_3x3', np.int64(3)), ('skip_connect', np.int64(1)), ('dil_conv_5x5', np.int64(3)), ('avg_pool_3x3', np.int64(3)), ('sep_conv_5x5', np.int64(4))], normal_concat=[5, 6], reduce=[('dil_conv_3x3', np.int64(0)), ('sep_conv_5x5', np.int64(0)), ('sep_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(0)), ('avg_pool_3x3', np.int64(0)), ('sep_conv_7x7', np.int64(3)), ('sep_conv_5x5', np.int64(0)), ('avg_pool_3x3', np.int64(2)), ('avg_pool_3x3', np.int64(0)), ('skip_connect', np.int64(2))], reduce_concat=[4, 5, 6])
+2025-09-28 16:18:55,059 param size = 1.031890MB
+2025-09-28 16:18:56,401 epoch 0 lr 2.812500e-02
+2025-09-28 16:21:15,486 train_acc 44.702500
+2025-09-28 16:21:15,488 epoch 1 lr 4.166667e-03
+2025-09-28 16:23:33,599 train_acc 66.222500
+2025-09-28 16:23:33,599 epoch 2 lr 0.000000e+00
+2025-09-28 16:25:52,893 train_acc 70.325000
+2025-09-28 16:26:11,387 valid_acc 70.450000
+2025-09-28 16:26:11,449 flops = 162.676600
+2025-09-28 16:26:11,460 Training prefiltered architecture 8 with SynFlow score -15.0000
+2025-09-28 16:26:11,620 Architecture = Genotype(normal=[('sep_conv_7x7', np.int64(0)), ('dil_conv_5x5', np.int64(1)), ('sep_conv_7x7', np.int64(2)), ('avg_pool_3x3', np.int64(0)), ('dil_conv_5x5', np.int64(3)), ('conv_7x1_1x7', np.int64(3)), ('sep_conv_5x5', np.int64(3)), ('max_pool_3x3', np.int64(3)), ('max_pool_3x3', np.int64(2)), ('max_pool_3x3', np.int64(4))], normal_concat=[5, 6], reduce=[('avg_pool_3x3', np.int64(1)), ('dil_conv_5x5', np.int64(1)), ('sep_conv_5x5', np.int64(0)), ('sep_conv_5x5', np.int64(0)), ('max_pool_3x3', np.int64(2)), ('max_pool_3x3', np.int64(3)), ('sep_conv_3x3', np.int64(4)), ('skip_connect', np.int64(2)), ('dil_conv_5x5', np.int64(5)), ('sep_conv_5x5', np.int64(2))], reduce_concat=[6])
+2025-09-28 16:26:11,663 param size = 1.248034MB
+2025-09-28 16:26:13,037 epoch 0 lr 2.812500e-02
+2025-09-28 16:29:24,982 train_acc 28.632500
+2025-09-28 16:29:24,982 epoch 1 lr 4.166667e-03
+2025-09-28 16:32:38,482 train_acc 46.672500
+2025-09-28 16:32:38,482 epoch 2 lr 0.000000e+00
+2025-09-28 16:35:53,024 train_acc 51.382500
+2025-09-28 16:36:14,149 valid_acc 52.730000
+2025-09-28 16:36:14,214 flops = 208.222100
+2025-09-28 16:36:14,223 Architecture 3 not selected for training (SynFlow score: -15.0000)
+2025-09-28 16:36:14,224 Architecture 5 not selected for training (SynFlow score: -15.0000)
+2025-09-28 16:36:14,224 Architecture 6 not selected for training (SynFlow score: -15.0000)
+2025-09-28 16:36:14,224 Architecture 7 not selected for training (SynFlow score: -15.0000)
+2025-09-28 16:36:14,236 generation = 1
+2025-09-28 16:36:14,236 population error: best = 29.549999999999997, mean = 68.16375, median = 73.635, worst = 100.0
+2025-09-28 16:36:14,237 population complexity: best = 162.6468, mean = 588.81195, median = 604.11105, worst = 1000.0
+2025-09-28 16:36:14,238 Computing SynFlow scores for generation 1
+2025-09-28 16:36:14,238 Computing SynFlow for Network id = 9
+2025-09-28 16:36:14,332 Computing SynFlow for Network id = 10
+2025-09-28 16:36:14,385 Computing SynFlow for Network id = 11
+2025-09-28 16:36:14,446 Computing SynFlow for Network id = 12
+2025-09-28 16:36:14,503 Computing SynFlow for Network id = 13
+2025-09-28 16:36:14,554 Computing SynFlow for Network id = 14
+2025-09-28 16:36:16,719 SynFlow ranking for generation 1: [4 5 3 2 1 0]
+2025-09-28 16:36:16,719 Keeping 3 out of 6 architectures based on SynFlow prefiltering
+2025-09-28 16:36:16,719 Training prefiltered architecture 5 with SynFlow score -4.0836
+2025-09-28 16:36:16,795 Architecture = Genotype(normal=[('sep_conv_3x3', np.int64(0)), ('dil_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(2)), ('dil_conv_5x5', np.int64(2)), ('sep_conv_7x7', np.int64(1)), ('sep_conv_3x3', np.int64(2)), ('max_pool_3x3', np.int64(1)), ('dil_conv_3x3', np.int64(1)), ('sep_conv_7x7', np.int64(2)), ('avg_pool_3x3', np.int64(4))], normal_concat=[3, 5, 6], reduce=[('avg_pool_3x3', np.int64(1)), ('dil_conv_5x5', np.int64(1)), ('sep_conv_5x5', np.int64(2)), ('dil_conv_3x3', np.int64(0)), ('dil_conv_3x3', np.int64(3)), ('skip_connect', np.int64(0)), ('sep_conv_5x5', np.int64(0)), ('sep_conv_3x3', np.int64(0)), ('dil_conv_3x3', np.int64(4)), ('sep_conv_3x3', np.int64(3))], reduce_concat=[5, 6])
+2025-09-28 16:36:16,842 param size = 0.957034MB
+2025-09-28 16:36:18,127 epoch 0 lr 2.812500e-02
+2025-09-28 16:39:38,496 train_acc 36.727500
+2025-09-28 16:39:38,496 epoch 1 lr 4.166667e-03
+2025-09-28 16:43:00,601 train_acc 57.492500
+2025-09-28 16:43:00,601 epoch 2 lr 0.000000e+00
+2025-09-28 16:46:23,176 train_acc 62.540000
+2025-09-28 16:46:44,899 valid_acc 62.850000
+2025-09-28 16:46:44,989 flops = 166.314800
+2025-09-28 16:46:44,991 Training prefiltered architecture 6 with SynFlow score -4.4583
+2025-09-28 16:46:45,045 Architecture = Genotype(normal=[('skip_connect', np.int64(1)), ('conv_7x1_1x7', np.int64(0)), ('sep_conv_7x7', np.int64(0)), ('dil_conv_5x5', np.int64(2)), ('max_pool_3x3', np.int64(0)), ('max_pool_3x3', np.int64(3)), ('skip_connect', np.int64(1)), ('dil_conv_5x5', np.int64(3)), ('avg_pool_3x3', np.int64(3)), ('sep_conv_5x5', np.int64(4))], normal_concat=[5, 6], reduce=[('dil_conv_3x3', np.int64(0)), ('sep_conv_5x5', np.int64(0)), ('dil_conv_5x5', np.int64(1)), ('conv_7x1_1x7', np.int64(2)), ('avg_pool_3x3', np.int64(1)), ('sep_conv_7x7', np.int64(0)), ('sep_conv_7x7', np.int64(3)), ('skip_connect', np.int64(1)), ('dil_conv_3x3', np.int64(0)), ('skip_connect', np.int64(4))], reduce_concat=[5, 6])
+2025-09-28 16:46:45,091 param size = 1.318882MB
+2025-09-28 16:46:46,457 epoch 0 lr 2.812500e-02
+2025-09-28 16:49:38,184 train_acc 40.760000
+2025-09-28 16:49:38,184 epoch 1 lr 4.166667e-03
+2025-09-28 16:52:31,574 train_acc 60.150000
+2025-09-28 16:52:31,574 epoch 2 lr 0.000000e+00
+2025-09-28 16:55:24,100 train_acc 64.015000
+2025-09-28 16:55:44,028 valid_acc 64.670000
+2025-09-28 16:55:44,100 flops = 204.462000
+2025-09-28 16:55:44,109 Training prefiltered architecture 4 with SynFlow score -15.0000
+2025-09-28 16:55:44,170 Architecture = Genotype(normal=[('sep_conv_3x3', np.int64(1)), ('avg_pool_3x3', np.int64(1)), ('max_pool_3x3', np.int64(2)), ('conv_7x1_1x7', np.int64(2)), ('sep_conv_3x3', np.int64(0)), ('sep_conv_3x3', np.int64(0)), ('conv_7x1_1x7', np.int64(2)), ('conv_7x1_1x7', np.int64(2)), ('sep_conv_7x7', np.int64(4)), ('avg_pool_3x3', np.int64(5))], normal_concat=[3, 6], reduce=[('avg_pool_3x3', np.int64(0)), ('sep_conv_5x5', np.int64(1)), ('max_pool_3x3', np.int64(0)), ('conv_7x1_1x7', np.int64(1)), ('conv_7x1_1x7', np.int64(1)), ('sep_conv_7x7', np.int64(3)), ('sep_conv_5x5', np.int64(0)), ('avg_pool_3x3', np.int64(2)), ('max_pool_3x3', np.int64(4)), ('max_pool_3x3', np.int64(4))], reduce_concat=[5, 6])
+2025-09-28 16:55:44,218 param size = 2.489602MB
+2025-09-28 16:55:45,566 epoch 0 lr 2.812500e-02
+2025-09-28 16:59:19,791 train_acc 30.757500
+2025-09-28 16:59:19,791 epoch 1 lr 4.166667e-03
+2025-09-28 17:02:54,365 train_acc 52.797500
+2025-09-28 17:02:54,365 epoch 2 lr 0.000000e+00
+2025-09-28 17:06:31,231 train_acc 58.562500
+2025-09-28 17:06:54,242 valid_acc 59.080000
+2025-09-28 17:06:54,340 flops = 385.814400
+2025-09-28 17:06:54,357 Architecture 1 not selected for training (SynFlow score: -15.0000)
+2025-09-28 17:06:54,357 Architecture 2 not selected for training (SynFlow score: -15.0000)
+2025-09-28 17:06:54,357 Architecture 3 not selected for training (SynFlow score: -15.0000)
+2025-09-28 17:06:54,362 generation = 2
+2025-09-28 17:06:54,362 population error: best = 29.549999999999997, mean = 44.838750000000005, median = 36.31, worst = 100.0
+2025-09-28 17:06:54,362 population complexity: best = 162.6468, mean = 308.38585, median = 190.70605, worst = 1000.0
+2025-09-28 17:06:54,368 Computing SynFlow scores for generation 2
+2025-09-28 17:06:54,368 Computing SynFlow for Network id = 15
+2025-09-28 17:06:54,411 Computing SynFlow for Network id = 16
+2025-09-28 17:06:54,541 Computing SynFlow for Network id = 17
+2025-09-28 17:06:54,594 Computing SynFlow for Network id = 18
+2025-09-28 17:06:54,649 Computing SynFlow for Network id = 19
+2025-09-28 17:06:54,707 Computing SynFlow for Network id = 20
+2025-09-28 17:06:56,706 SynFlow ranking for generation 2: [0 5 4 2 1 3]
+2025-09-28 17:06:56,706 Keeping 3 out of 6 architectures based on SynFlow prefiltering
+2025-09-28 17:06:56,706 Training prefiltered architecture 1 with SynFlow score -3.6462
+2025-09-28 17:06:56,742 Architecture = Genotype(normal=[('sep_conv_7x7', np.int64(0)), ('dil_conv_3x3', np.int64(1)), ('max_pool_3x3', np.int64(0)), ('max_pool_3x3', np.int64(2)), ('avg_pool_3x3', np.int64(3)), ('max_pool_3x3', np.int64(3)), ('skip_connect', np.int64(1)), ('dil_conv_5x5', np.int64(3)), ('avg_pool_3x3', np.int64(3)), ('sep_conv_5x5', np.int64(4))], normal_concat=[5, 6], reduce=[('dil_conv_3x3', np.int64(0)), ('sep_conv_5x5', np.int64(0)), ('sep_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(0)), ('avg_pool_3x3', np.int64(0)), ('sep_conv_7x7', np.int64(3)), ('sep_conv_5x5', np.int64(0)), ('skip_connect', np.int64(2)), ('dil_conv_5x5', np.int64(5)), ('sep_conv_5x5', np.int64(2))], reduce_concat=[4, 6])
+2025-09-28 17:06:56,789 param size = 0.670018MB
+2025-09-28 17:06:58,024 epoch 0 lr 2.812500e-02
+2025-09-28 17:09:28,420 train_acc 41.922500
+2025-09-28 17:09:28,420 epoch 1 lr 4.166667e-03
+2025-09-28 17:11:59,039 train_acc 61.982500
+2025-09-28 17:11:59,039 epoch 2 lr 0.000000e+00
+2025-09-28 17:14:28,255 train_acc 66.480000
+2025-09-28 17:14:47,123 valid_acc 67.540000
+2025-09-28 17:14:47,172 flops = 114.606000
+2025-09-28 17:14:47,199 Training prefiltered architecture 6 with SynFlow score -3.7642
+2025-09-28 17:14:47,236 Architecture = Genotype(normal=[('sep_conv_3x3', np.int64(0)), ('dil_conv_5x5', np.int64(1)), ('max_pool_3x3', np.int64(0)), ('max_pool_3x3', np.int64(2)), ('avg_pool_3x3', np.int64(3)), ('max_pool_3x3', np.int64(3)), ('skip_connect', np.int64(1)), ('dil_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(3)), ('sep_conv_5x5', np.int64(4))], normal_concat=[5, 6], reduce=[('dil_conv_3x3', np.int64(0)), ('sep_conv_5x5', np.int64(0)), ('sep_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(0)), ('avg_pool_3x3', np.int64(0)), ('sep_conv_7x7', np.int64(3)), ('sep_conv_5x5', np.int64(0)), ('avg_pool_3x3', np.int64(0)), ('dil_conv_3x3', np.int64(4)), ('sep_conv_3x3', np.int64(3))], reduce_concat=[2, 5, 6])
+2025-09-28 17:14:47,275 param size = 0.653890MB
+2025-09-28 17:14:48,526 epoch 0 lr 2.812500e-02
+2025-09-28 17:17:04,119 train_acc 43.707500
+2025-09-28 17:17:04,119 epoch 1 lr 4.166667e-03
+2025-09-28 17:19:20,234 train_acc 65.355000
+2025-09-28 17:19:20,234 epoch 2 lr 0.000000e+00
+2025-09-28 17:21:36,713 train_acc 69.977500
+2025-09-28 17:21:54,853 valid_acc 69.160000
+2025-09-28 17:21:54,912 flops = 107.933600
+2025-09-28 17:21:54,921 Training prefiltered architecture 5 with SynFlow score -4.1061
+2025-09-28 17:21:54,971 Architecture = Genotype(normal=[('sep_conv_3x3', np.int64(0)), ('dil_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(2)), ('dil_conv_3x3', np.int64(2)), ('sep_conv_7x7', np.int64(1)), ('sep_conv_3x3', np.int64(2)), ('max_pool_3x3', np.int64(1)), ('dil_conv_3x3', np.int64(1)), ('sep_conv_7x7', np.int64(2)), ('avg_pool_3x3', np.int64(4))], normal_concat=[3, 5, 6], reduce=[('avg_pool_3x3', np.int64(0)), ('dil_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(0)), ('max_pool_3x3', np.int64(0)), ('dil_conv_3x3', np.int64(3)), ('avg_pool_3x3', np.int64(0)), ('sep_conv_5x5', np.int64(0)), ('sep_conv_3x3', np.int64(0)), ('dil_conv_3x3', np.int64(4)), ('sep_conv_3x3', np.int64(3))], reduce_concat=[2, 5, 6])
+2025-09-28 17:21:55,031 param size = 0.916282MB
+2025-09-28 17:21:56,298 epoch 0 lr 2.812500e-02
+2025-09-28 17:25:07,437 train_acc 41.892500
+2025-09-28 17:25:07,437 epoch 1 lr 4.166667e-03
+2025-09-28 17:28:17,346 train_acc 63.967500
+2025-09-28 17:28:17,347 epoch 2 lr 0.000000e+00
+2025-09-28 17:31:26,522 train_acc 67.972500
+2025-09-28 17:31:47,704 valid_acc 68.510000
+2025-09-28 17:31:47,783 flops = 160.729900
+2025-09-28 17:31:47,793 Architecture 2 not selected for training (SynFlow score: -4.5764)
+2025-09-28 17:31:47,793 Architecture 3 not selected for training (SynFlow score: -4.4239)
+2025-09-28 17:31:47,793 Architecture 4 not selected for training (SynFlow score: -15.0000)
+2025-09-28 17:31:47,801 generation = 3
+2025-09-28 17:31:47,801 population error: best = 29.549999999999997, mean = 33.16374999999999, median = 32.739999999999995, worst = 37.15
+2025-09-28 17:31:47,801 population complexity: best = 107.9336, mean = 157.039975, median = 162.6617, worst = 204.462
+2025-09-28 17:31:47,802 Computing SynFlow scores for generation 3
+2025-09-28 17:31:47,802 Computing SynFlow for Network id = 21
+2025-09-28 17:31:47,839 Computing SynFlow for Network id = 22
+2025-09-28 17:31:47,884 Computing SynFlow for Network id = 23
+2025-09-28 17:31:47,931 Computing SynFlow for Network id = 24
+2025-09-28 17:31:47,988 Computing SynFlow for Network id = 25
+2025-09-28 17:31:48,111 Computing SynFlow for Network id = 26
+2025-09-28 17:31:49,980 SynFlow ranking for generation 3: [0 5 1 2 3 4]
+2025-09-28 17:31:49,981 Keeping 3 out of 6 architectures based on SynFlow prefiltering
+2025-09-28 17:31:49,981 Training prefiltered architecture 1 with SynFlow score -3.7408
+2025-09-28 17:31:50,092 Architecture = Genotype(normal=[('sep_conv_3x3', np.int64(0)), ('dil_conv_5x5', np.int64(1)), ('max_pool_3x3', np.int64(0)), ('max_pool_3x3', np.int64(2)), ('avg_pool_3x3', np.int64(3)), ('max_pool_3x3', np.int64(3)), ('skip_connect', np.int64(1)), ('dil_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(2)), ('avg_pool_3x3', np.int64(4))], normal_concat=[5, 6], reduce=[('dil_conv_3x3', np.int64(0)), ('sep_conv_5x5', np.int64(0)), ('sep_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(0)), ('avg_pool_3x3', np.int64(0)), ('sep_conv_7x7', np.int64(3)), ('sep_conv_5x5', np.int64(0)), ('avg_pool_3x3', np.int64(0)), ('dil_conv_3x3', np.int64(4)), ('sep_conv_3x3', np.int64(3))], reduce_concat=[2, 5, 6])
+2025-09-28 17:31:50,118 param size = 0.554098MB
+2025-09-28 17:31:51,300 epoch 0 lr 2.812500e-02
+2025-09-28 17:33:48,654 train_acc 40.955000
+2025-09-28 17:33:48,654 epoch 1 lr 4.166667e-03
+2025-09-28 17:35:46,961 train_acc 63.932500
+2025-09-28 17:35:46,962 epoch 2 lr 0.000000e+00
+2025-09-28 17:37:46,101 train_acc 67.745000
+2025-09-28 17:38:03,258 valid_acc 67.710000
+2025-09-28 17:38:03,313 flops = 90.220400
+2025-09-28 17:38:03,324 Training prefiltered architecture 6 with SynFlow score -3.8710
+2025-09-28 17:38:03,365 Architecture = Genotype(normal=[('sep_conv_3x3', np.int64(0)), ('dil_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(2)), ('dil_conv_3x3', np.int64(2)), ('avg_pool_3x3', np.int64(3)), ('max_pool_3x3', np.int64(3)), ('skip_connect', np.int64(1)), ('dil_conv_5x5', np.int64(2)), ('avg_pool_3x3', np.int64(3)), ('sep_conv_5x5', np.int64(4))], normal_concat=[5, 6], reduce=[('dil_conv_3x3', np.int64(0)), ('sep_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(0)), ('max_pool_3x3', np.int64(0)), ('dil_conv_3x3', np.int64(3)), ('avg_pool_3x3', np.int64(0)), ('sep_conv_5x5', np.int64(0)), ('sep_conv_3x3', np.int64(0)), ('dil_conv_3x3', np.int64(4)), ('sep_conv_3x3', np.int64(3))], reduce_concat=[2, 5, 6])
+2025-09-28 17:38:03,406 param size = 0.666490MB
+2025-09-28 17:38:04,654 epoch 0 lr 2.812500e-02
+2025-09-28 17:40:20,819 train_acc 38.027500
+2025-09-28 17:40:20,819 epoch 1 lr 4.166667e-03
+2025-09-28 17:42:37,672 train_acc 57.690000
+2025-09-28 17:42:37,672 epoch 2 lr 0.000000e+00
+2025-09-28 17:44:53,718 train_acc 62.422500
+2025-09-28 17:45:11,958 valid_acc 63.850000
+2025-09-28 17:45:12,017 flops = 111.196000
+2025-09-28 17:45:12,028 Training prefiltered architecture 2 with SynFlow score -3.8774
+2025-09-28 17:45:12,074 Architecture = Genotype(normal=[('sep_conv_7x7', np.int64(0)), ('dil_conv_5x5', np.int64(1)), ('sep_conv_7x7', np.int64(0)), ('max_pool_3x3', np.int64(2)), ('avg_pool_3x3', np.int64(3)), ('max_pool_3x3', np.int64(0)), ('sep_conv_5x5', np.int64(1)), ('dil_conv_3x3', np.int64(2)), ('dil_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(4))], normal_concat=[5, 6], reduce=[('sep_conv_7x7', np.int64(0)), ('dil_conv_5x5', np.int64(1)), ('avg_pool_3x3', np.int64(0)), ('max_pool_3x3', np.int64(0)), ('dil_conv_3x3', np.int64(3)), ('avg_pool_3x3', np.int64(2)), ('max_pool_3x3', np.int64(2)), ('sep_conv_7x7', np.int64(2)), ('sep_conv_7x7', np.int64(3)), ('avg_pool_3x3', np.int64(2))], reduce_concat=[4, 5, 6])
+2025-09-28 17:45:12,113 param size = 0.819130MB
+2025-09-28 17:45:13,369 epoch 0 lr 2.812500e-02
+2025-09-28 17:48:15,356 train_acc 41.777500
+2025-09-28 17:48:15,356 epoch 1 lr 4.166667e-03
+2025-09-28 17:51:17,815 train_acc 63.565000
+2025-09-28 17:51:17,815 epoch 2 lr 0.000000e+00
+2025-09-28 17:54:21,363 train_acc 67.860000
+2025-09-28 17:54:42,124 valid_acc 68.440000
+2025-09-28 17:54:42,193 flops = 144.760700
+2025-09-28 17:54:42,204 Architecture 3 not selected for training (SynFlow score: -3.8918)
+2025-09-28 17:54:42,204 Architecture 4 not selected for training (SynFlow score: -4.0870)
+2025-09-28 17:54:42,204 Architecture 5 not selected for training (SynFlow score: -4.8646)
+2025-09-28 17:54:42,212 generation = 4
+2025-09-28 17:54:42,212 population error: best = 29.549999999999997, mean = 32.17, median = 31.925000000000004, worst = 36.15
+2025-09-28 17:54:42,212 population complexity: best = 90.2204, mean = 133.6341625, median = 129.68335000000002, worst = 176.9501
